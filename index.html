@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>DanceStudio</title>
+  <link rel="stylesheet" href="/shared/style.css">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="ds-bar">
+    <strong>💃 DanceStudio</strong>
+    <span id="status" class="quiet" aria-live="polite"></span>
+    <span class="spacer"></span>
+    <button id="cameraBtn" aria-pressed="false">📷 Camera</button>
+    <button id="hoverBtn" aria-pressed="true" title="Hold the cursor on a tile to choose it">🖱 Hover</button>
+    <button id="settingsBtn" aria-label="Settings">⚙</button>
+  </header>
+
+  <main id="stage" class="stage">
+    <video id="video" playsinline muted aria-hidden="true"></video>
+    <div id="grid" class="grid" role="group" aria-label="Commands"></div>
+  </main>
+
+  <dialog id="settings" class="ds-settings">
+    <form method="dialog">
+      <h2>DanceStudio settings</h2>
+      <label>Your topics (comma between them)
+        <textarea id="topicsInput" rows="3"></textarea>
+      </label>
+      <label>Hold to choose: <output id="holdOut"></output>
+        <input id="holdInput" type="range" min="500" max="3000" step="100">
+      </label>
+      <label>Movement needed: <output id="sensOut"></output>
+        <input id="sensInput" type="range" min="0.04" max="0.4" step="0.01">
+      </label>
+      <label class="check"><input id="mirrorInput" type="checkbox"> Mirror the camera (move right to choose on the right)</label>
+      <label class="check"><input id="speakInput" type="checkbox"> Say what to choose next</label>
+      <p class="quiet small">The camera picture stays on this device: DanceStudio only measures movement in each part of the picture. Nothing is recorded or sent.</p>
+      <div class="row"><span class="spacer"></span><button value="close" class="primary">Done</button></div>
+    </form>
+  </dialog>
+</body>
+</html>

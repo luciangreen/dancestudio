@@ -1,0 +1,58 @@
+html, body { height: 100%; }
+body { display: flex; flex-direction: column; overflow: hidden; }
+
+.ds-bar { display: flex; align-items: center; gap: 8px; padding: 8px 12px; padding-top: max(8px, env(safe-area-inset-top)); background: var(--panel); border-bottom: 1px solid var(--line); }
+.ds-bar button { min-height: 40px; }
+.ds-bar button[aria-pressed='true'] { background: var(--accent); color: white; border-color: var(--accent); }
+#status { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+
+.stage { position: relative; flex: 1; overflow: hidden; background: #111; }
+.stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); opacity: 0; transition: opacity 0.3s; }
+body.nomirror .stage video { transform: none; }
+body.camera .stage video { opacity: 0.55; }
+
+.grid { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1.3fr 1fr; grid-template-rows: 1fr 1.2fr 1fr; gap: 10px; padding: 10px; padding-bottom: max(10px, env(safe-area-inset-bottom)); }
+.cell { min-width: 0; min-height: 0; border-radius: 18px; }
+.cell.empty { pointer-events: none; }
+.tile {
+  --e: 0; --h: 0; --m: 0;
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  border: 2px solid rgb(255 255 255 / 35%); color: white; font-size: clamp(14px, 2.2vw, 22px); font-weight: 600; text-align: center; padding: 8px;
+  background: color-mix(in srgb, var(--accent) calc(18% + var(--e) * 45%), rgb(20 20 30 / 55%));
+  backdrop-filter: blur(2px); overflow: hidden; transition: background 0.1s;
+}
+.tile:hover, .tile:focus-visible { border-color: white; }
+.tile .glyph { font-size: clamp(26px, 5vw, 52px); line-height: 1; }
+.tile .label { overflow-wrap: anywhere; text-shadow: 0 1px 3px rgb(0 0 0 / 60%); }
+.tile.run { background: color-mix(in srgb, #2a8a4a calc(55% + var(--e) * 40%), rgb(20 20 30 / 55%)); }
+.tile.back { background: rgb(60 60 70 / 60%); }
+.tile.none { opacity: 0.6; font-weight: 400; }
+/* the fill that shows how long until a tile is chosen: cursor (h) or movement (m) */
+.tile .ring {
+  position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  background: conic-gradient(rgb(255 255 255 / 38%) calc(max(var(--h), var(--m)) * 360deg), transparent 0);
+  -webkit-mask: radial-gradient(circle, transparent 58%, black 59%);
+  mask: radial-gradient(circle, transparent 58%, black 59%);
+}
+
+.middle { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; color: white; padding: 10px; background: rgb(0 0 0 / 35%); border: 1px dashed rgb(255 255 255 / 25%); }
+.middle .sentence { font-size: clamp(16px, 2.6vw, 28px); font-weight: 700; text-shadow: 0 1px 4px rgb(0 0 0 / 70%); }
+.middle .hint { color: rgb(255 255 255 / 75%); }
+.middle .recent { color: rgb(255 255 255 / 65%); }
+.typeform { display: flex; gap: 6px; width: min(100%, 320px); }
+.typeform input { flex: 1; min-height: 44px; font-size: 17px; }
+
+.ds-settings { width: min(480px, 92vw); border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--ink); }
+.ds-settings form { display: grid; gap: 12px; }
+.ds-settings h2 { margin: 0; font-size: 18px; }
+.ds-settings label { display: grid; gap: 4px; font-size: 14px; }
+.ds-settings label.check { display: flex; gap: 8px; align-items: center; }
+.ds-settings textarea { font: inherit; }
+.small { font-size: 12.5px; }
+
+@media (max-width: 560px) {
+  .grid { gap: 6px; padding: 6px; grid-template-columns: 1fr 1.1fr 1fr; }
+  .tile { border-radius: 14px; }
+  .ds-bar strong { display: none; }
+}
+@media (hover: none) { #hoverBtn { display: none; } }

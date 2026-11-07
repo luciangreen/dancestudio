@@ -1,0 +1,10 @@
+{
+  "name": "dancestudio",
+  "version": "0.1.0",
+  "description": "DanceStudio: choose LucianOS commands by moving in front of the camera, or with the cursor",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "license": "BSD-3-Clause"
+}
